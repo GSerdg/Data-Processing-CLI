@@ -13,23 +13,21 @@ const main = async () => {
 
   rl.prompt();
 
-  rl.on("line", (line) => {
-    // if (line === "") rl.prompt();
-
+  rl.on("line", async (line) => {
     const lineDestructure = line.split(' ');
     const lineCommand = lineDestructure[0];
     const lineArgs = lineDestructure[1];
-    console.log('lineArgs', lineCommand)
+
     switch (lineCommand) {
       case "":
         rl.prompt();
         break;
       case "up":
-        up();
+        await up();
         rl.prompt();
         break;
       case "cd":
-        cd(lineArgs);
+        await cd(lineArgs);
         rl.prompt();
         break;
       case ".exit":

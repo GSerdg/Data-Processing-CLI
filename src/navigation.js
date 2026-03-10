@@ -1,9 +1,9 @@
 // @ts-check
 
-import { join, parse } from "node:path";
+import { join, parse, dirname } from "node:path";
 import { homedir } from "node:os";
+import { readdir, writeFile, stat, readFile } from "node:fs/promises";
 
-const __dirname = import.meta.dirname;
 const rootPath = parse(homedir()).root;
 
 export const workDir = {
@@ -11,26 +11,37 @@ export const workDir = {
   get() {
     return this._path;
   },
-  set(target) {
+  async set(target) {
     if (target) {
-      this._path =
-        target?.[0] === "." ? join(this._path, target) : join(target);
+      try {
+        const targetPath =
+          target?.[0] === "." ? join(this._path, target) : join(target);
+        await readdir(targetPath);
+
+        this._path = targetPath;
+        console.log(getCurrentlyDirMessage());
+      } catch (err) {
+        if (["ENOTDIR", "ENOENT"].includes(err.code)) {
+          console.error("Operation failed\n");
+        } else {
+          throw err;
+        }
+      }
     }
   },
 };
-export const getCurrentlyDirMessage = () => `You are currently in ${workDir.get()}\n`;
+export const getCurrentlyDirMessage = () =>
+  `You are currently in ${workDir.get()}\n`;
 
-export const up = () => {
+export const up = async () => {
   if (workDir.get() === rootPath) {
     console.log(getCurrentlyDirMessage());
     return;
   }
 
-  workDir.set("..");
-  console.log(getCurrentlyDirMessage());
+  await workDir.set("..");
 };
 
-export const cd = (path) => {
-  workDir.set(path);
-  console.log(getCurrentlyDirMessage());
+export const cd = async (path) => {
+  await workDir.set(path);
 };
