@@ -5,7 +5,6 @@ import { homedir } from "node:os";
 
 const __dirname = import.meta.dirname;
 const rootPath = parse(homedir()).root;
-console.log('rootPath', rootPath)
 
 export const workDir = {
   _path: join(homedir(), "home"),
@@ -19,9 +18,19 @@ export const workDir = {
     }
   },
 };
+export const getCurrentlyDirMessage = () => `You are currently in ${workDir.get()}\n`;
 
 export const up = () => {
-  if (workDir.get() === rootPath) return;
-  
-  workDir.set('..');
-}
+  if (workDir.get() === rootPath) {
+    console.log(getCurrentlyDirMessage());
+    return;
+  }
+
+  workDir.set("..");
+  console.log(getCurrentlyDirMessage());
+};
+
+export const cd = (path) => {
+  workDir.set(path);
+  console.log(getCurrentlyDirMessage());
+};
