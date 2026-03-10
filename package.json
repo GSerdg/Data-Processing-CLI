@@ -8,7 +8,7 @@
   },
   "type": "module",
   "scripts": {
-    "fs:snapshot": "node src/fs/snapshot.js"
+    "start": "node src/main.js"
   },
   
   "author": "GSerdg"
