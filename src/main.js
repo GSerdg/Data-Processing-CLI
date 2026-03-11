@@ -2,6 +2,7 @@
 import { createInterface } from "node:readline/promises";
 import { stdin as input, stdout as output } from "node:process";
 import { cd, getCurrentlyDirMessage, ls, up } from "./navigation.js";
+import { csvToJson } from "./commands/csvToJson.js";
 
 const __dirname = import.meta.dirname;
 
@@ -15,8 +16,8 @@ const main = async () => {
 
   rl.on("line", async (line) => {
     const lineDestructure = line.split(" ");
-    const lineCommand = lineDestructure[0];
-    const lineArgs = lineDestructure[1];
+    const lineCommand = lineDestructure.splice(0, 1)[0];
+    const lineArgs = lineDestructure;
 
     switch (lineCommand) {
       case "":
@@ -27,13 +28,18 @@ const main = async () => {
         rl.prompt();
         break;
       case "cd":
-        await cd(lineArgs);
+        await cd(lineArgs[0]);
         rl.prompt();
         break;
       case "ls":
         await ls();
         rl.prompt();
         break;
+      case "csv-to-json":
+        await csvToJson(lineArgs);
+        rl.prompt();
+        break;
+
       case ".exit":
         rl.close();
         break;

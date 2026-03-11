@@ -1,6 +1,6 @@
 // @ts-check
 
-import { join, parse, dirname } from "node:path";
+import { join, parse, resolve } from "node:path";
 import { homedir } from "node:os";
 import { readdir, writeFile, stat, readFile } from "node:fs/promises";
 
@@ -14,8 +14,7 @@ export const workDir = {
   async set(target) {
     if (target) {
       try {
-        const targetPath =
-          target?.[0] === "." ? join(this._path, target) : join(target);
+        const targetPath = resolve(this._path, target);
         await readdir(targetPath);
 
         this._path = targetPath;
