@@ -3,6 +3,7 @@ import { createInterface } from "node:readline/promises";
 import { stdin as input, stdout as output } from "node:process";
 import { cd, getCurrentlyDirMessage, ls, up } from "./navigation.js";
 import { csvToJson } from "./commands/csvToJson.js";
+import { jsonToCsv } from "./commands/jsonToCsv.js";
 
 const __dirname = import.meta.dirname;
 
@@ -35,8 +36,13 @@ const main = async () => {
         await ls();
         rl.prompt();
         break;
+
       case "csv-to-json":
         await csvToJson(lineArgs);
+        rl.prompt();
+        break;
+      case "json-to-csv":
+        await jsonToCsv(lineArgs);
         rl.prompt();
         break;
 

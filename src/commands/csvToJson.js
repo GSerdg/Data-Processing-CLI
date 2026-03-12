@@ -1,26 +1,24 @@
 // @ts-check
 
 import { createReadStream, createWriteStream } from "node:fs";
-import { Transform, Writable, Readable } from "node:stream";
+import { Transform, Writable } from "node:stream";
 import { pipeline } from "node:stream/promises";
 import { resolve } from "node:path";
-import { workDir } from "../navigation.js";
+import { getCurrentlyDirMessage, workDir } from "../navigation.js";
+import { getArgs } from "../utils/argParser.js";
 
 export const csvToJson = async (lineArgs) => {
-  const inputIdx = lineArgs.indexOf("--input");
-  const outputIdx = lineArgs.indexOf("--output");
+  const args = getArgs(lineArgs);
 
-  if (
-    inputIdx === -1 ||
-    outputIdx === -1 ||
-    !lineArgs[inputIdx + 1] ||
-    !lineArgs[outputIdx + 1]
-  ) {
-    throw new Error("wrong arguments");
+  if (!Object.hasOwn(args, "input") || !Object.hasOwn(args, "output")) {
+    console.error("Operation failed: wrong arguments");
+
+    return;
   }
 
-  const inputPath = lineArgs[inputIdx + 1];
-  const outputPath = lineArgs[outputIdx + 1];
+  const inputPath = args.input;
+  const outputPath = args.output;
+
   const csvPath = resolve(workDir.get(), inputPath);
   const jsonPath = resolve(workDir.get(), outputPath);
 
@@ -100,6 +98,8 @@ export const csvToJson = async (lineArgs) => {
     const readStream = createReadStream(csvPath);
 
     await pipeline(readStream, transform, writable);
+    
+    console.log(getCurrentlyDirMessage());
   } catch (err) {
     if (err.code === "ENOENT") {
       console.error("Operation failed");
@@ -107,4 +107,5 @@ export const csvToJson = async (lineArgs) => {
       throw err;
     }
   }
+
 };

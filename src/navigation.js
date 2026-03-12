@@ -2,7 +2,7 @@
 
 import { join, parse, resolve } from "node:path";
 import { homedir } from "node:os";
-import { readdir, writeFile, stat, readFile } from "node:fs/promises";
+import { readdir } from "node:fs/promises";
 
 const rootPath = parse(homedir()).root;
 
@@ -29,6 +29,7 @@ export const workDir = {
     }
   },
 };
+
 export const getCurrentlyDirMessage = () =>
   `You are currently in ${workDir.get()}\n`;
 
