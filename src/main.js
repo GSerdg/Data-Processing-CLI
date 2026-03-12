@@ -6,6 +6,7 @@ import { csvToJson } from "./commands/csvToJson.js";
 import { jsonToCsv } from "./commands/jsonToCsv.js";
 import { cd, getCurrentlyDirMessage, ls, up } from "./navigation.js";
 import { hash } from "./commands/hash.js";
+import { hashCompare } from "./commands/hashCompare.js";
 
 const __dirname = import.meta.dirname;
 
@@ -53,6 +54,10 @@ const main = async () => {
         break;
       case "hash":
         await hash(lineArgs);
+        rl.prompt();
+        break;
+        case "hash-compare":
+        await hashCompare(lineArgs);
         rl.prompt();
         break;
       case ".exit":
