@@ -7,7 +7,7 @@ import { readdir } from "node:fs/promises";
 const rootPath = parse(homedir()).root;
 
 export const workDir = {
-  _path: join(homedir(), "home"),
+  _path: homedir(),
   get() {
     return this._path;
   },

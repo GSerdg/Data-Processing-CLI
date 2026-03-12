@@ -5,6 +5,7 @@ import { count } from "./commands/count.js";
 import { csvToJson } from "./commands/csvToJson.js";
 import { jsonToCsv } from "./commands/jsonToCsv.js";
 import { cd, getCurrentlyDirMessage, ls, up } from "./navigation.js";
+import { hash } from "./commands/hash.js";
 
 const __dirname = import.meta.dirname;
 
@@ -17,7 +18,7 @@ const main = async () => {
   rl.prompt();
 
   rl.on("line", async (line) => {
-    const lineDestructure = line.split(" ");
+    const lineDestructure = line.trim().split(" ");
     const lineCommand = lineDestructure.splice(0, 1)[0];
     const lineArgs = lineDestructure;
 
@@ -50,7 +51,10 @@ const main = async () => {
         await count(lineArgs);
         rl.prompt();
         break;
-
+      case "hash":
+        await hash(lineArgs);
+        rl.prompt();
+        break;
       case ".exit":
         rl.close();
         break;
