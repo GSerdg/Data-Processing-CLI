@@ -1,9 +1,10 @@
 // @ts-check
-import { createInterface } from "node:readline/promises";
 import { stdin as input, stdout as output } from "node:process";
-import { cd, getCurrentlyDirMessage, ls, up } from "./navigation.js";
+import { createInterface } from "node:readline/promises";
+import { count } from "./commands/count.js";
 import { csvToJson } from "./commands/csvToJson.js";
 import { jsonToCsv } from "./commands/jsonToCsv.js";
+import { cd, getCurrentlyDirMessage, ls, up } from "./navigation.js";
 
 const __dirname = import.meta.dirname;
 
@@ -43,6 +44,10 @@ const main = async () => {
         break;
       case "json-to-csv":
         await jsonToCsv(lineArgs);
+        rl.prompt();
+        break;
+      case "count":
+        await count(lineArgs);
         rl.prompt();
         break;
 

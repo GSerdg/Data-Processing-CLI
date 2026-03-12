@@ -39,16 +39,12 @@ export const jsonToCsv = async (lineArgs) => {
 
           for (const obj of parsed) {
             if (isFirst) {
-              this.push(
-                `${Object.keys(obj).join(',')}\n`,
-              );
+              this.push(`${Object.keys(obj).join(",")}\n`);
 
               isFirst = false;
             }
 
-            this.push(
-              `${Object.values(obj).join(',')}\n`,
-            );
+            this.push(`${Object.values(obj).join(",")}\n`);
           }
         } catch (error) {
           throw new Error("Operation failed");
