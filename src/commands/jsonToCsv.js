@@ -40,14 +40,14 @@ export const jsonToCsv = async (lineArgs) => {
           for (const obj of parsed) {
             if (isFirst) {
               this.push(
-                `${Object.keys(obj).reduce((str, key) => (str === "" ? key : `${str},${key}`), "")}\n`,
+                `${Object.keys(obj).join(',')}\n`,
               );
 
               isFirst = false;
             }
 
             this.push(
-              `${Object.values(obj).reduce((str, value) => (str === "" ? value : `${str},${value}`), "")}\n`,
+              `${Object.values(obj).join(',')}\n`,
             );
           }
         } catch (error) {
