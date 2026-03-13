@@ -1,8 +1,8 @@
 // @ts-check
 
-import { join, parse, resolve } from "node:path";
-import { homedir } from "node:os";
 import { readdir } from "node:fs/promises";
+import { homedir } from "node:os";
+import { parse, resolve } from "node:path";
 
 const rootPath = parse(homedir()).root;
 

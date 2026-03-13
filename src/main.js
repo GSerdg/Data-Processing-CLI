@@ -3,10 +3,11 @@ import { stdin as input, stdout as output } from "node:process";
 import { createInterface } from "node:readline/promises";
 import { count } from "./commands/count.js";
 import { csvToJson } from "./commands/csvToJson.js";
-import { jsonToCsv } from "./commands/jsonToCsv.js";
-import { cd, getCurrentlyDirMessage, ls, up } from "./navigation.js";
 import { hash } from "./commands/hash.js";
 import { hashCompare } from "./commands/hashCompare.js";
+import { jsonToCsv } from "./commands/jsonToCsv.js";
+import { cd, getCurrentlyDirMessage, ls, up } from "./navigation.js";
+import { encrypt } from "./commands/encrypt.js";
 
 const __dirname = import.meta.dirname;
 
@@ -39,6 +40,9 @@ const main = async () => {
         await ls();
         rl.prompt();
         break;
+      case ".exit":
+        rl.close();
+        break;
 
       case "csv-to-json":
         await csvToJson(lineArgs);
@@ -56,12 +60,13 @@ const main = async () => {
         await hash(lineArgs);
         rl.prompt();
         break;
-        case "hash-compare":
+      case "hash-compare":
         await hashCompare(lineArgs);
         rl.prompt();
         break;
-      case ".exit":
-        rl.close();
+      case "encrypt":
+        await encrypt(lineArgs);
+        rl.prompt();
         break;
 
       default:

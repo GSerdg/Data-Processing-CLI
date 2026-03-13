@@ -1,9 +1,9 @@
 // @ts-check
 
 import { createReadStream, createWriteStream } from "node:fs";
+import { resolve } from "node:path";
 import { Transform, Writable } from "node:stream";
 import { pipeline } from "node:stream/promises";
-import { resolve } from "node:path";
 import { getCurrentlyDirMessage, workDir } from "../navigation.js";
 import { getArgs } from "../utils/argParser.js";
 

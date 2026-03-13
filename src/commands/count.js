@@ -1,12 +1,12 @@
 // @ts-check
 
-import { Transform } from "node:stream";
+import { createReadStream } from "node:fs";
 import { resolve } from "node:path";
+import { stdout } from "node:process";
+import { Transform } from "node:stream";
+import { pipeline } from "node:stream/promises";
 import { getCurrentlyDirMessage, workDir } from "../navigation.js";
 import { getArgs } from "../utils/argParser.js";
-import { createReadStream } from "node:fs";
-import { pipeline } from "node:stream/promises";
-import { stdout } from "node:process";
 
 export const count = async (lineArgs) => {
   const args = getArgs(lineArgs);
