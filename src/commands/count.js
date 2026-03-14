@@ -1,5 +1,3 @@
-// @ts-check
-
 import { createReadStream } from "node:fs";
 import { resolve } from "node:path";
 import { stdout } from "node:process";

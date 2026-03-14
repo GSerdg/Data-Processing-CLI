@@ -1,4 +1,3 @@
-// @ts-check
 import { createReadStream } from "node:fs";
 import { createInterface } from "node:readline";
 import { parentPort, workerData } from "node:worker_threads";

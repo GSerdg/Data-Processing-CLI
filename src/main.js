@@ -1,4 +1,3 @@
-// @ts-check
 import { stdin as input, stdout as output } from "node:process";
 import { createInterface } from "node:readline/promises";
 import { count } from "./commands/count.js";

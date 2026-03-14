@@ -1,5 +1,3 @@
-// @ts-check
-
 import { createHash } from "node:crypto";
 import { createReadStream } from "node:fs";
 import { readFile } from "node:fs/promises";

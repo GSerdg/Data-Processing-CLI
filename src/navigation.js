@@ -1,5 +1,3 @@
-// @ts-check
-
 import { readdir } from "node:fs/promises";
 import { homedir } from "node:os";
 import { parse, resolve } from "node:path";

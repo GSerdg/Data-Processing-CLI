@@ -1,4 +1,3 @@
-// @ts-check
 import { createCipheriv, randomBytes, scrypt } from "node:crypto";
 import { createReadStream, createWriteStream } from "node:fs";
 import { resolve } from "node:path";

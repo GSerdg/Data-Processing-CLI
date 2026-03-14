@@ -1,4 +1,3 @@
-// @ts-check
 import { open, stat, writeFile } from "node:fs/promises";
 import { cpus } from "node:os";
 import { join, resolve } from "node:path";
