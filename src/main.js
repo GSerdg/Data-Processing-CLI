@@ -8,6 +8,8 @@ import { hashCompare } from "./commands/hashCompare.js";
 import { jsonToCsv } from "./commands/jsonToCsv.js";
 import { cd, getCurrentlyDirMessage, ls, up } from "./navigation.js";
 import { encrypt } from "./commands/encrypt.js";
+import { decrypt } from "./commands/decrypt.js";
+import { logStats } from "./commands/logStats.js";
 
 const __dirname = import.meta.dirname;
 
@@ -66,6 +68,14 @@ const main = async () => {
         break;
       case "encrypt":
         await encrypt(lineArgs);
+        rl.prompt();
+        break;
+      case "decrypt":
+        await decrypt(lineArgs);
+        rl.prompt();
+        break;
+      case "log-stats":
+        await logStats(lineArgs);
         rl.prompt();
         break;
 

@@ -28,7 +28,7 @@ export const encrypt = async (lineArgs) => {
   const iv = randomBytes(12);
   const key = await scryptAsync(args.password, salt, 32);
 
-  const chipheriv = createCipheriv("aes-256-gcm", key, iv);
+  const cipher = createCipheriv("aes-256-gcm", key, iv);
   const readStream = createReadStream(inputPath);
   const writeStream = createWriteStream(outputPath);
 
@@ -36,9 +36,9 @@ export const encrypt = async (lineArgs) => {
     writeStream.write(salt);
     writeStream.write(iv);
 
-    await pipeline(readStream, chipheriv, writeStream, { end: false });
+    await pipeline(readStream, cipher, writeStream, { end: false });
 
-    const authTag = chipheriv.getAuthTag();
+    const authTag = cipher.getAuthTag();
     writeStream.write(authTag);
 
     console.log(getCurrentlyDirMessage());
